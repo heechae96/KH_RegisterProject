@@ -10,4 +10,6 @@
     - 프로그램 종료
 
 ## 1차 피드백
-- [ ] RegisterFunction의 addSubject()의 중복 코드들을 메서드로 만들어서 간결하게 할 것
+- [x] RegisterFunction의 addSubject()의 중복 코드들을 메서드로 만들어서 간결하게 할 것
+    - findUpdate() : 일치하는 정보가 존재하는 경우 기존 객체를 변경
+    - notFindUpdate() : 일치하는 정보가 없는 경우 새로운 객체 생성
