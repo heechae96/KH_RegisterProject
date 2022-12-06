@@ -57,6 +57,29 @@ public class RegisterFunction {
 		}
 	}
 
+	public void findUpdate(int i, int code) {	
+		// 새로 추가한 과목은 신청인원 +1
+		students[i].setSubject(subjects[code-1]);
+		int check = subjects[code - 1].getRegisterNum();
+		subjects[code - 1].setRegisterNum(check + 1);
+		// 이전에 추가했던 과목은 최소하므로 신청인원 -1
+		int prev = students[i].getCode();
+		int prevNum = subjects[code - 1].getRegisterNum();
+		subjects[prev - 1].setRegisterNum(prevNum - 1);
+		// 변경했으면 신청한 코드로 변경
+		students[i].setCode(code);
+		// findUpdate를 빠져나감
+		return;
+	}
+	
+	public void notFindUpdate(String name, String phone, int code) {
+		students[PERSON] = new Student(name, phone, subjects[code-1], code);
+		int check = subjects[code - 1].getRegisterNum();
+		subjects[code - 1].setRegisterNum(check + 1);
+		PERSON++;
+		return;	// notFindUpdate를 빠져나감
+	}
+	
 	public void addSubject() {
 		System.out.println("==================================== 수강 신청 ====================================");
 
@@ -83,86 +106,26 @@ public class RegisterFunction {
 			if (checkName.equals(name) && checkPhone.equals(phone)) {
 				switch (code) {
 				
-				// 피드백: 중복 코드를 메서드로 빼서 간결하게 만들어볼것.
-				// ex) findUpdate(i, code) { }
 				case 1:
-					// 새로 추가한 과목은 신청인원 +1
-					students[i].setSubject(subjects[0]);
-					int check = subjects[code - 1].getRegisterNum();
-					subjects[code - 1].setRegisterNum(check + 1);
-					// 이전에 추가했던 과목은 최소하므로 신청인원 -1
-					int prev = students[i].getCode();
-					int prevNum = subjects[code - 1].getRegisterNum();
-					subjects[prev - 1].setRegisterNum(prevNum - 1);
-					// 변경했으면 신청한 코드로 변경
-					students[i].setCode(code);
-					// return이 아닌 break;를 쓰면 다음 for문이 다 돌고 아래에서 새로운 객체를 생성해버림.
-					return;
+					findUpdate(i, code);
+					return;	// addSubject()를 빠져나감
 				case 2:
-					students[i].setSubject(subjects[1]);
-					int check2 = subjects[code - 1].getRegisterNum();
-					subjects[code - 1].setRegisterNum(check2 + 1);
-					
-					int prev2 = students[i].getCode();
-					int prevNum2 = subjects[code - 1].getRegisterNum();
-					subjects[prev2 - 1].setRegisterNum(prevNum2 - 1);
-					students[i].setCode(code);
-					
+					findUpdate(i, code);
 					return;
 				case 3:
-					students[i].setSubject(subjects[2]);
-					int check3 = subjects[code - 1].getRegisterNum();
-					subjects[code - 1].setRegisterNum(check3 + 1);
-					
-					int prev3 = students[i].getCode();
-					int prevNum3 = subjects[code - 1].getRegisterNum();
-					subjects[prev3 - 1].setRegisterNum(prevNum3 - 1);
-					students[i].setCode(code);
-					
+					findUpdate(i, code);
 					return;
 				case 4:
-					students[i].setSubject(subjects[3]);
-					int check4 = subjects[code - 1].getRegisterNum();
-					subjects[code - 1].setRegisterNum(check4 + 1);
-					
-					int prev4 = students[i].getCode();
-					int prevNum4 = subjects[code - 1].getRegisterNum();
-					subjects[prev4 - 1].setRegisterNum(prevNum4 - 1);
-					students[i].setCode(code);
-					
+					findUpdate(i, code);
 					return;
 				case 5:
-					students[i].setSubject(subjects[4]);
-					int check5 = subjects[code - 1].getRegisterNum();
-					subjects[code - 1].setRegisterNum(check5 + 1);
-					
-					int prev5 = students[i].getCode();
-					int prevNum5 = subjects[code - 1].getRegisterNum();
-					subjects[prev5 - 1].setRegisterNum(prevNum5 - 1);
-					students[i].setCode(code);
-					
+					findUpdate(i, code);
 					return;
 				case 6:
-					students[i].setSubject(subjects[5]);
-					int check6 = subjects[code - 1].getRegisterNum();
-					subjects[code - 1].setRegisterNum(check6 + 1);
-					
-					int prev6 = students[i].getCode();
-					int prevNum6 = subjects[code - 1].getRegisterNum();
-					subjects[prev6 - 1].setRegisterNum(prevNum6 - 1);
-					students[i].setCode(code);
-					
+					findUpdate(i, code);
 					return;
 				case 7:
-					students[i].setSubject(subjects[6]);
-					int check7 = subjects[code - 1].getRegisterNum();
-					subjects[code - 1].setRegisterNum(check7 + 1);
-					
-					int prev7 = students[i].getCode();
-					int prevNum7 = subjects[code - 1].getRegisterNum();
-					subjects[prev7 - 1].setRegisterNum(prevNum7 - 1);
-					students[i].setCode(code);
-					
+					findUpdate(i, code);
 					return;
 				}
 			}
@@ -172,46 +135,25 @@ public class RegisterFunction {
 		// 새로운 객체를 만들어준다
 		switch (code) {
 		case 1:
-			students[PERSON] = new Student(name, phone, subjects[0], code);
-			int check = subjects[code - 1].getRegisterNum();
-			subjects[code - 1].setRegisterNum(check + 1);
-			PERSON++;
+			notFindUpdate(name, phone, code);
 			break;
 		case 2:
-			students[PERSON] = new Student(name, phone, subjects[1], code);
-			int check2 = subjects[code - 1].getRegisterNum();
-			subjects[code - 1].setRegisterNum(check2 + 1);
-			PERSON++;
+			notFindUpdate(name, phone, code);
 			break;
 		case 3:
-			students[PERSON] = new Student(name, phone, subjects[2], code);
-			int check3 = subjects[code - 1].getRegisterNum();
-			subjects[code - 1].setRegisterNum(check3 + 1);
-			PERSON++;
+			notFindUpdate(name, phone, code);
 			break;
 		case 4:
-			students[PERSON] = new Student(name, phone, subjects[3], code);
-			int check4 = subjects[code - 1].getRegisterNum();
-			subjects[code - 1].setRegisterNum(check4 + 1);
-			PERSON++;
+			notFindUpdate(name, phone, code);
 			break;
 		case 5:
-			students[PERSON] = new Student(name, phone, subjects[4], code);
-			int check5 = subjects[code - 1].getRegisterNum();
-			subjects[code - 1].setRegisterNum(check5 + 1);
-			PERSON++;
+			notFindUpdate(name, phone, code);
 			break;
 		case 6:
-			students[PERSON] = new Student(name, phone, subjects[5], code);
-			int check6 = subjects[code - 1].getRegisterNum();
-			subjects[code - 1].setRegisterNum(check6 + 1);
-			PERSON++;
+			notFindUpdate(name, phone, code);
 			break;
 		case 7:
-			students[PERSON] = new Student(name, phone, subjects[6], code);
-			int check7 = subjects[code - 1].getRegisterNum();
-			subjects[code - 1].setRegisterNum(check7 + 1);
-			PERSON++;
+			notFindUpdate(name, phone, code);
 			break;
 		}
 
