@@ -82,6 +82,7 @@ public class RegisterFunction {
 
 			if (checkName.equals(name) && checkPhone.equals(phone)) {
 				switch (code) {
+				
 				// 피드백: 중복 코드를 메서드로 빼서 간결하게 만들어볼것.
 				// ex) findUpdate(i, code) { }
 				case 1:
