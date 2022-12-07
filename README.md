@@ -15,4 +15,4 @@
     - notFindUpdate() : 일치하는 정보가 없는 경우 새로운 객체 생성
 
 ## 2차 피드백
-- [ ] RegisterFunction의 addSubject() 불필요한 switch-case문 제거 할 것
+- [x] RegisterFunction의 addSubject() 불필요한 switch-case문 제거 할 것
