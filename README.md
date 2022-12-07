@@ -13,3 +13,6 @@
 - [x] RegisterFunction의 addSubject()의 중복 코드들을 메서드로 만들어서 간결하게 할 것
     - findUpdate() : 일치하는 정보가 존재하는 경우 기존 객체를 변경
     - notFindUpdate() : 일치하는 정보가 없는 경우 새로운 객체 생성
+
+## 2차 피드백
+- [ ] RegisterFunction의 addSubject() 불필요한 switch-case문 제거 할 것
