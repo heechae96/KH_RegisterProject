@@ -19,16 +19,16 @@ public class RegisterFunction {
 			new Subject("빅데이터 기반 금융 솔루션 UI개발자 양성과정", 7, "서은우", 3, 0) };
 
 	public void checkPeople() {
-		for(int i=0; i<PERSON; i++) {
+		for (int i = 0; i < PERSON; i++) {
 			System.out.println((i + 1) + "번: " + students[i]);
 		}
-		
+
 		System.out.println("-------------------------------------------------------------------");
-	
-		for(int i=0; i<subjects.length; i++) {
+
+		for (int i = 0; i < subjects.length; i++) {
 			System.out.println(subjects[i]);
 		}
-		
+
 	}
 
 	public int printMenu() {
@@ -57,9 +57,9 @@ public class RegisterFunction {
 		}
 	}
 
-	public void findUpdate(int i, int code) {	
+	public void findUpdate(int i, int code) {
 		// 새로 추가한 과목은 신청인원 +1
-		students[i].setSubject(subjects[code-1]);
+		students[i].setSubject(subjects[code - 1]);
 		int check = subjects[code - 1].getRegisterNum();
 		subjects[code - 1].setRegisterNum(check + 1);
 		// 이전에 추가했던 과목은 최소하므로 신청인원 -1
@@ -71,15 +71,15 @@ public class RegisterFunction {
 		// findUpdate를 빠져나감
 		return;
 	}
-	
+
 	public void notFindUpdate(String name, String phone, int code) {
-		students[PERSON] = new Student(name, phone, subjects[code-1], code);
+		students[PERSON] = new Student(name, phone, subjects[code - 1], code);
 		int check = subjects[code - 1].getRegisterNum();
 		subjects[code - 1].setRegisterNum(check + 1);
 		PERSON++;
-		return;	// notFindUpdate를 빠져나감
+		return; // notFindUpdate를 빠져나감
 	}
-	
+
 	public void addSubject() {
 		System.out.println("==================================== 수강 신청 ====================================");
 
@@ -104,58 +104,14 @@ public class RegisterFunction {
 			String checkPhone = students[i].getPhone();
 
 			if (checkName.equals(name) && checkPhone.equals(phone)) {
-				switch (code) {
-				
-				case 1:
-					findUpdate(i, code);
-					return;	// addSubject()를 빠져나감
-				case 2:
-					findUpdate(i, code);
-					return;
-				case 3:
-					findUpdate(i, code);
-					return;
-				case 4:
-					findUpdate(i, code);
-					return;
-				case 5:
-					findUpdate(i, code);
-					return;
-				case 6:
-					findUpdate(i, code);
-					return;
-				case 7:
-					findUpdate(i, code);
-					return;
-				}
+				findUpdate(i, code);
+				return; // addSubject()를 빠져나감
 			}
 		}
 
 		// 여기까지 도달하면 일치하는 정보가 없는것
 		// 새로운 객체를 만들어준다
-		switch (code) {
-		case 1:
-			notFindUpdate(name, phone, code);
-			break;
-		case 2:
-			notFindUpdate(name, phone, code);
-			break;
-		case 3:
-			notFindUpdate(name, phone, code);
-			break;
-		case 4:
-			notFindUpdate(name, phone, code);
-			break;
-		case 5:
-			notFindUpdate(name, phone, code);
-			break;
-		case 6:
-			notFindUpdate(name, phone, code);
-			break;
-		case 7:
-			notFindUpdate(name, phone, code);
-			break;
-		}
+		notFindUpdate(name, phone, code);
 
 	}
 
