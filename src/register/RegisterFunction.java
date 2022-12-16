@@ -4,13 +4,15 @@ import java.util.Scanner;
 
 public class RegisterFunction {
 
-	static Student[] students;
+	Student[] students;
+//	static Student[] students;
 
 	public RegisterFunction() {
 		students = new Student[21];
 	}
 
-	static int PERSON = 0; // 0~20
+	int PERSON = 0; // 0~20
+//	static int PERSON = 0; // 0~20
 
 	Subject[] subjects = { new Subject("Java", 1, "김이준", 3, 0), new Subject("Python", 2, "이서준", 3, 0),
 			new Subject("C언어", 3, "홍하준", 3, 0), new Subject("프론트 개발자 양성과정", 4, "박도윤", 3, 0),
