@@ -16,3 +16,6 @@
 
 ## 2차 피드백
 - [x] RegisterFunction의 addSubject() 불필요한 switch-case문 제거 할 것
+
+## 3차 피드백
+- [x] RegisterFunction의 불필요한 static 제거 할 것
