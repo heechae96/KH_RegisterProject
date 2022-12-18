@@ -3,8 +3,8 @@ package registerMVC;
 public class Run {
 
 	public static void main(String[] args) {
-		SubjectController subCon = new SubjectController();
-		StudentController stdCon = new StudentController();
+		SubjectController subCon = SubjectController.getInstance();
+		StudentController stdCon = StudentController.getInstance();
 		RegisterView view = new RegisterView();
 
 		EXIT: while (true) {
