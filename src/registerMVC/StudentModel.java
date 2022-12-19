@@ -17,11 +17,6 @@ public class StudentModel {
 		this.subject = subject;
 	}
 	
-	public StudentModel(String name, String phone) {
-		this.name = name;
-		this.phone = phone;
-	}
-
 	// Getters and Setters
 	public String getName() {
 		return name;
