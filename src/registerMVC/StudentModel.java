@@ -5,18 +5,21 @@ public class StudentModel {
 	private String name; 				// 이름
 	private String phone; 				// 휴대폰 번호
 	private SubjectModel subject; 		// 수강 신청 과목
-	private int code; 					// 수강신청한 과목 코드(인원 제한에 사용)
 
 	// 생성자
 	public StudentModel() {
 
 	}
 
-	public StudentModel(String name, String phone, SubjectModel subject, int code) {
+	public StudentModel(String name, String phone, SubjectModel subject) {
 		this.name = name;
 		this.phone = phone;
 		this.subject = subject;
-		this.code = code;
+	}
+	
+	public StudentModel(String name, String phone) {
+		this.name = name;
+		this.phone = phone;
 	}
 
 	// Getters and Setters
@@ -44,17 +47,9 @@ public class StudentModel {
 		this.subject = subject;
 	}
 
-	public int getCode() {
-		return code;
-	}
-
-	public void setCode(int code) {
-		this.code = code;
-	}
-
 	// toString()
 	public String toString() {
-		return "이름=" + name + ", 휴대폰번호=" + phone + ", 확인코드=" + code + "\n" + subject;
+		return "이름=" + name + ", 휴대폰번호=" + phone + "\n" + subject;
 	}
 
 }

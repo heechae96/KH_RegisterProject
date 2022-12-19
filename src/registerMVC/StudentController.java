@@ -5,29 +5,21 @@ import java.util.List;
 
 public class StudentController {
 
-	SubjectController subjectCon = SubjectController.getInstance();
-	RegisterView view;
+	private List<StudentModel> studentList;
 
-	private static StudentController INSTANCE;
-
-	private StudentController() {
+	public StudentController() {
+		studentList = new ArrayList<StudentModel>();
 	}
 
-	public static StudentController getInstance() {
-		if (INSTANCE == null) {
-			INSTANCE = new StudentController();
-		}
-		return INSTANCE;
-	}
-
-	private static List<StudentModel> studentList = new ArrayList<StudentModel>();
-
-	public List<StudentModel> list() {
+	public List<StudentModel> getList(){
 		return studentList;
 	}
 
-	public void addSubject(StudentModel m) {
-		studentList.add(m);
+	public boolean addStudent(String[] info, SubjectModel model) {
+		String name = info[0];
+		String phone = info[1];
+		StudentModel m = new StudentModel(name, phone, model);
+		return studentList.add(m);
 	}
 
 	public StudentModel getSubject(String name, String phone) {
@@ -40,24 +32,22 @@ public class StudentController {
 		return null;
 	}
 
-	public StudentModel updateSubject(String name, String phone, int code, SubjectModel newSub) {
+	public StudentModel updateSubject(String name, String phone, SubjectModel newSub) {
 		for (int i = 0; i < studentList.size(); i++) {
 			StudentModel checkModel = studentList.get(i);
 			if ((name.equals(studentList.get(i).getName())) && phone.equals(studentList.get(i).getPhone())) {
-				checkModel.setCode(code);
 				checkModel.setSubject(newSub);
 				return checkModel;
 			}
 		}
 		return null;
 	}
-
-	public void keepOrUpdate(String msg) {
-		if ("yes".equalsIgnoreCase(msg)) {
-			view = new RegisterView();
-			view.modifySubject();
-		} else if ("no".equalsIgnoreCase(msg)) {
-			return;
+	
+	public boolean adminCheck(String[] admin) {
+		if("admin".equals(admin[0]) && "1234".equals(admin[1])) {
+			return true;
+		}else {
+			return false;
 		}
 	}
 
