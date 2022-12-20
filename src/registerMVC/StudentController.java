@@ -11,7 +11,7 @@ public class StudentController {
 		studentList = new ArrayList<StudentModel>();
 	}
 
-	public List<StudentModel> getList(){
+	public List<StudentModel> getList() {
 		return studentList;
 	}
 
@@ -32,21 +32,15 @@ public class StudentController {
 		return null;
 	}
 
-	public StudentModel updateSubject(String name, String phone, SubjectModel newSub) {
-		for (int i = 0; i < studentList.size(); i++) {
-			StudentModel checkModel = studentList.get(i);
-			if ((name.equals(studentList.get(i).getName())) && phone.equals(studentList.get(i).getPhone())) {
-				checkModel.setSubject(newSub);
-				return checkModel;
-			}
-		}
-		return null;
+	public StudentModel updateSubject(StudentModel stdModel, SubjectModel NewSubjectModel) {
+		stdModel.setSubject(NewSubjectModel);
+		return stdModel;
 	}
-	
+
 	public boolean adminCheck(String[] admin) {
-		if("admin".equals(admin[0]) && "1234".equals(admin[1])) {
+		if ("admin".equals(admin[0]) && "1234".equals(admin[1])) {
 			return true;
-		}else {
+		} else {
 			return false;
 		}
 	}
