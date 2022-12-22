@@ -58,15 +58,10 @@ public class RegisterView {
 		return num;
 	}
 
-	public void checkAll(List<StudentModel> stdM, List<SubjectModel> subM) {
+	public void checkStudent(List<StudentModel> stdM) {
+		System.out.println("========================================================================");
 		for (int i = 0; i < stdM.size(); i++) {
 			System.out.println((i + 1) + "번: " + stdM.get(i));
-		}
-
-		System.out.println("========================================================================");
-
-		for (int i = 0; i < subM.size(); i++) {
-			System.out.println(subM.get(i));
 		}
 	}
 
@@ -142,15 +137,11 @@ public class RegisterView {
 		System.out.println(msg);
 	}
 
-	public void exceptionMsg(String msg) {
-		System.out.println("[예외 발생] " + msg);
-	}
-
 	public void displaySuccess(String message) {
-		System.out.println("[처리 결과] : " + message);
+		System.out.println("===== [처리 결과] ===== : " + message);
 	}
 
 	public void displayError(String message) {
-		System.out.println("[오류 발생] : " + message);
+		System.out.println("===== [오류 발생] ===== : " + message);
 	}
 }

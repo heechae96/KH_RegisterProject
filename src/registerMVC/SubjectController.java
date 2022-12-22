@@ -15,6 +15,10 @@ public class SubjectController {
 		return subjectList;
 	}
 
+	public int getSize() {
+		return subjectList.size();
+	}
+
 	// 추가
 	public void addSubject(SubjectModel sub) {
 		subjectList.add(sub);
