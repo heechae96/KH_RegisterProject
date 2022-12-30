@@ -61,12 +61,10 @@ public class Subject {
 
     @Override
     public String toString() {
-        return "Student{" +
-                "subjectName='" + subjectName + '\'' +
-                ", subjectCode=" + subjectCode +
-                ", name='" + name + '\'' +
-                ", capacity=" + capacity +
-                ", registerNumber=" + registerNumber +
-                '}';
+        return "과목코드: " + subjectCode + "\n" +
+        		"과목명: " + subjectName + "\n" +
+        		"교수명: " + name + "\n" + 
+        		"최대 수강 인원: " + capacity + "\n" +
+        		"신청 수강 인원: " + registerNumber;
     }
 }

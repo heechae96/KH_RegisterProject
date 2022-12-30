@@ -51,11 +51,9 @@ public class Student {
 
     @Override
     public String toString() {
-        return "Student{" +
-                "studentId='" + studentId + '\'' +
-                ", name='" + name + '\'' +
-                ", phone='" + phone + '\'' +
-                ", subjectCode=" + subjectCode +
-                '}';
+    	return "아이디: " + studentId + "\n" +
+    			"이름: " + name + "\n" +
+    			"휴대폰번호: " + phone + "\n" +
+    			"수강 과목 코드: " + subjectCode;
     }
 }
