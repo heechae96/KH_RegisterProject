@@ -61,7 +61,7 @@ public class SubjectController {
 		Subject subject = subDao.selectByCodeNum(codeNum);
 		return subject;
 	}
-	
+
 	/**
 	 * 해당 과목코드가 존재하는지 확인
 	 * @param codeNum
@@ -72,4 +72,27 @@ public class SubjectController {
 		int result = subDao.checkCodeNum(codeNum);
 		return result;
 	}
+
+	/**
+	 * 해당 과목의 수강신청 인원 + 1
+	 * @param sub
+	 * @return int
+	 */
+	public int plusSubject(Subject sub) {
+		SubjectDAO subDao = new SubjectDAO();
+		int result = subDao.plusRegisterNum(sub);
+		return result;
+	}
+
+	/**
+	 * 해당 과목의 수강신청 인원 - 1
+	 * @param sub
+	 * @return int
+	 */
+	public int minusSubject(Subject sub) {
+		SubjectDAO subDao = new SubjectDAO();
+		int result = subDao.minusRegisterNum(sub);
+		return result;
+	}
+	
 }

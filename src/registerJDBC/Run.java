@@ -107,8 +107,7 @@ public class Run {
 				}
 				break;
 			case 2:
-				OUT:
-				while(true) {
+				OUT: while (true) {
 					// 개설 과목 노출 필요
 					list = subCon.findAll();
 					if (list.isEmpty()) {
@@ -118,13 +117,19 @@ public class Run {
 						view.printAllSubject(list);
 						view.printMsg("=============== 위의 과목 코드를 확인해주세요 ===============");
 						student = view.inputStudent();
-						int checkNum = student.getSubjectCode();	// 없는 과목코드가 들어가지 못하도록 확인 작업
+						int checkNum = student.getSubjectCode(); // 없는 과목코드가 들어가지 못하도록 확인 작업
 						if (subCon.checkCodeNum(checkNum) > 0) {
+							// 수강 신청 인원 + 1
+							subject = subCon.findByCodeNum(checkNum);
+							subCon.plusSubject(subject);
 							result = stdCon.addStudent(student);
-							view.displaySuccess("수강 신청 완료!!");
-							break OUT;
-						} else {
-							view.displayFail("수강신청을 실패하였습니다. 과목코드를 다시 확인하세요!!");
+							if (result > 0) {
+								view.displaySuccess("수강 신청 완료!!");
+								break OUT;
+							} else {
+								view.displayFail("수강신청을 실패하였습니다. 과목코드를 다시 확인하세요!!");
+								break;
+							}
 						}
 					}
 				}
@@ -148,18 +153,27 @@ public class Run {
 							// 없는 과목코드가 들어가지 못하도록 확인 작업
 							if (subCon.checkCodeNum(codeNum) > 0) {
 								result = stdCon.changeCodeNum(codeNum, student);
-								view.displaySuccess("수강신청 내역을 변경하였습니다!!");
-							} else {
+								if (result > 0) {
+									// 기존과목 수강 신청 인원 - 1
+									subCon.minusSubject(subject);
+									// 새로운 과목 수강 신청 인원 + 1
+									subject = subCon.findByCodeNum(codeNum);
+									subCon.plusSubject(subject);
+									view.displaySuccess("수강신청 내역을 변경하였습니다!!");
+									break EXIT;
+								}
+							}else {
 								view.displayFail("수강신청 내역을 변경하지 못했습니다. 과목코드를 다시 확인하세요!!");
+								break;
 							}
-							break EXIT;
 						} else if (choice.equalsIgnoreCase("no")) {
 							view.displaySuccess("그대로 수강신청 내역을 유지합니다");
 							break EXIT;
 						} else {
 							view.displayFail("YES 또는 NO를 입력하세요..");
+							break;
 						}
-					}
+					}	// end - if
 				} else {
 					view.displayFail("해당 id가 존재하지 않습니다..");
 				}

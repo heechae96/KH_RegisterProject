@@ -1,6 +1,11 @@
 package registerJDBC;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,7 +55,7 @@ public class SubjectDAO {
 
 	// 1. 과목 생성
 	public int insertSubject(Subject subject) {
-		String sql = "INSERT INTO SUBJECT_TBL(?,SUB_SEQUENCE.NEXTVAL,?,DEFAULT,DEFAULT)";
+		String sql = "INSERT INTO SUBJECT_TBL VALUES(?,SUB_SEQUENCE.NEXTVAL,?,DEFAULT,DEFAULT)";
 		int result = -1;
 		try {
 			Class.forName(DRIVER_NAME);
@@ -98,6 +103,7 @@ public class SubjectDAO {
 		try {
 			Class.forName(DRIVER_NAME);
 			Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 
@@ -116,6 +122,7 @@ public class SubjectDAO {
 
 	}
 
+	// 받아온 과목코드와 일치하는 과목을 조회
 	public Subject selectByCodeNum(int codeNum) {
 		String sql = "SELECT * FROM SUBJECT_TBL WHERE SUBJECT_CODE = ?";
 		Subject subject = null;
@@ -136,14 +143,17 @@ public class SubjectDAO {
 
 	}
 
+	// 해당 과목코드가 존재하는지 확인
 	public int checkCodeNum(int codeNum) {
 		String sql = "SELECT COUNT(*) AS COUNT FROM SUBJECT_TBL WHERE SUBJECT_CODE = ?";
 		int result = -1;
 		try {
 			Class.forName(DRIVER_NAME);
 			Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, codeNum);
+
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
 				result = rs.getInt(1);
@@ -155,6 +165,50 @@ public class SubjectDAO {
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	// 받아온 과목코드와 일치하는 과목의 신청수강인원을 +1
+	public int plusRegisterNum(Subject subject) {
+		String sql = "UPDATE SUBJECT_TBL SET REGISTER_NUMBER = ? WHERE SUBJECT_CODE = ?";
+		int result = -1;
+		try {
+			Class.forName(DRIVER_NAME);
+			Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, subject.getRegisterNumber() + 1);
+			pstmt.setInt(2, subject.getSubjectCode());
+
+			result = pstmt.executeUpdate();
+			return result;
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException(e);
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+
+	}
+
+	// 받아온 과목코드와 일치하는 과목의 신청수강인원을 -1
+	public int minusRegisterNum(Subject subject) {
+		String sql = "UPDATE SUBJECT_TBL SET REGISTER_NUMBER = ? WHERE SUBJECT_CODE = ?";
+		int result = -1;
+		try {
+			Class.forName(DRIVER_NAME);
+			Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, subject.getRegisterNumber() - 1);
+			pstmt.setInt(2, subject.getSubjectCode());
+
+			result = pstmt.executeUpdate();
+			return result;
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException(e);
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+
 	}
 
 }

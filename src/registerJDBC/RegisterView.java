@@ -59,7 +59,7 @@ public class RegisterView {
 		Subject subject = new Subject();
 		subject.setSubjectName(SubName);
 		subject.setName(name);
-
+		
 		return subject;
 	}
 
