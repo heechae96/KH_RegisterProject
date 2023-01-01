@@ -20,13 +20,13 @@ public class SubjectDAO {
 	// sql문에 값을 입력받는것이 없으면
 	// sqlInjection에 방어하기 위해 Statement를 쓰자!
 	public int autoInsertSubject() {
-		String sql1 = "INSERT INTO SUBJECT_TBL VALUES('자바', SUB_SEQUENCE.NEXTVAL, '김이준', DEFAULT, DEFAULT)";
-		String sql2 = "INSERT INTO SUBJECT_TBL VALUES('파이썬', SUB_SEQUENCE.NEXTVAL, '이서준', DEFAULT, DEFAULT)";
-		String sql3 = "INSERT INTO SUBJECT_TBL VALUES('C언어', SUB_SEQUENCE.NEXTVAL, '홍하준', DEFAULT, DEFAULT)";
-		String sql4 = "INSERT INTO SUBJECT_TBL VALUES('프론트 개발자 양성과정', SUB_SEQUENCE.NEXTVAL, '박도윤', DEFAULT, DEFAULT)";
-		String sql5 = "INSERT INTO SUBJECT_TBL VALUES('Springframework & 클라우드 융합 웹 개발자 양성과정', SUB_SEQUENCE.NEXTVAL, '민봉식', DEFAULT, DEFAULT)";
-		String sql6 = "INSERT INTO SUBJECT_TBL VALUES('클라우드 컴퓨팅 엔지니어 양성과정', SUB_SEQUENCE.NEXTVAL, '김시우', DEFAULT, DEFAULT)";
-		String sql7 = "INSERT INTO SUBJECT_TBL VALUES('빅데이터 기반 금융 솔루션 UI개발자 양성과정', SUB_SEQUENCE.NEXTVAL, '서은우', DEFAULT, DEFAULT)";
+		String sql1 = "INSERT INTO SUBJECT_TBL VALUES('자바', '김이준', SUB_SEQUENCE.NEXTVAL, DEFAULT, DEFAULT)";
+		String sql2 = "INSERT INTO SUBJECT_TBL VALUES('파이썬', '이서준', SUB_SEQUENCE.NEXTVAL, DEFAULT, DEFAULT)";
+		String sql3 = "INSERT INTO SUBJECT_TBL VALUES('C언어', '홍하준', SUB_SEQUENCE.NEXTVAL, DEFAULT, DEFAULT)";
+		String sql4 = "INSERT INTO SUBJECT_TBL VALUES('프론트 개발자 양성과정', '박도윤', SUB_SEQUENCE.NEXTVAL, DEFAULT, DEFAULT)";
+		String sql5 = "INSERT INTO SUBJECT_TBL VALUES('Springframework & 클라우드 융합 웹 개발자 양성과정', '민봉식', SUB_SEQUENCE.NEXTVAL, DEFAULT, DEFAULT)";
+		String sql6 = "INSERT INTO SUBJECT_TBL VALUES('클라우드 컴퓨팅 엔지니어 양성과정', '김시우', SUB_SEQUENCE.NEXTVAL, DEFAULT, DEFAULT)";
+		String sql7 = "INSERT INTO SUBJECT_TBL VALUES('빅데이터 기반 금융 솔루션 UI개발자 양성과정', '서은우', SUB_SEQUENCE.NEXTVAL, DEFAULT, DEFAULT)";
 
 		List<String> list = new ArrayList<>();
 		list.add(sql1);
@@ -37,13 +37,13 @@ public class SubjectDAO {
 		list.add(sql6);
 		list.add(sql7);
 
-		int result = -1;
+		int result = 0;
 		try {
 			Class.forName(DRIVER_NAME);
 			Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
 			Statement stmt = conn.createStatement();
 			for (int i = 0; i < 7; i++) {
-				result = stmt.executeUpdate(list.get(i));
+				result += stmt.executeUpdate(list.get(i));
 			}
 			return result;
 		} catch (ClassNotFoundException e) {
@@ -96,7 +96,7 @@ public class SubjectDAO {
 
 	// 3. 전체 과목 조회
 	public List<Subject> selectAll() {
-		String sql = "SELECT * FROM SUBJECT_TBL";
+		String sql = "SELECT * FROM SUBJECT_TBL ORDER BY SUBJECT_CODE";
 		Subject subject = null;
 		List<Subject> sList = null;
 
@@ -109,7 +109,7 @@ public class SubjectDAO {
 
 			sList = new ArrayList<>();
 			while (rs.next()) {
-				subject = new Subject(rs.getString(1), rs.getInt(2), rs.getString(3), rs.getInt(4), rs.getInt(5));
+				subject = new Subject(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getInt(5));
 				sList.add(subject);
 			}
 
@@ -133,7 +133,7 @@ public class SubjectDAO {
 
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
-				subject = new Subject(rs.getString(1), rs.getInt(2), rs.getString(3), rs.getInt(4), rs.getInt(5));
+				subject = new Subject(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getInt(5));
 			}
 
 			return subject;
@@ -145,7 +145,8 @@ public class SubjectDAO {
 
 	// 해당 과목코드가 존재하는지 확인
 	public int checkCodeNum(int codeNum) {
-		String sql = "SELECT COUNT(*) AS COUNT FROM SUBJECT_TBL WHERE SUBJECT_CODE = ?";
+//		String sql = "SELECT COUNT(*) AS COUNT FROM SUBJECT_TBL WHERE SUBJECT_CODE = ?";
+		String sql = "SELECT COUNT(*) FROM SUBJECT_TBL WHERE SUBJECT_CODE = ?";
 		int result = -1;
 		try {
 			Class.forName(DRIVER_NAME);
@@ -209,6 +210,54 @@ public class SubjectDAO {
 			throw new RuntimeException(e);
 		}
 
+	}
+
+	// 신청한 과목의 최대수강신청 인원을 가져옴
+	public int getMaxNum(int codeNum) {
+		String sql = "SELECT CAPACITY FROM SUBJECT_TBL WHERE SUBJECT_CODE = ?";
+		int result = -1;
+		try {
+			Class.forName(DRIVER_NAME);
+			Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, codeNum);
+
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				result = rs.getInt(1);
+			}
+//			return result;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	// 신청한 과목의 현재수강인원을 가져옴
+	public int getCurrNum(int codeNum) {
+		String sql = "SELECT REGISTER_NUMBER FROM SUBJECT_TBL WHERE SUBJECT_CODE = ?";
+		int result = -1;
+		try {
+			Class.forName(DRIVER_NAME);
+			Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, codeNum);
+
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				result = rs.getInt(1);
+			}
+//			return result;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 }

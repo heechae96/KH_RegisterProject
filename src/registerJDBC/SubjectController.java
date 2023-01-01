@@ -64,6 +64,7 @@ public class SubjectController {
 
 	/**
 	 * 해당 과목코드가 존재하는지 확인
+	 * 
 	 * @param codeNum
 	 * @return int
 	 */
@@ -75,6 +76,7 @@ public class SubjectController {
 
 	/**
 	 * 해당 과목의 수강신청 인원 + 1
+	 * 
 	 * @param sub
 	 * @return int
 	 */
@@ -86,6 +88,7 @@ public class SubjectController {
 
 	/**
 	 * 해당 과목의 수강신청 인원 - 1
+	 * 
 	 * @param sub
 	 * @return int
 	 */
@@ -94,5 +97,27 @@ public class SubjectController {
 		int result = subDao.minusRegisterNum(sub);
 		return result;
 	}
-	
+
+	/**
+	 * 해당 과목의 신청수강인원을 조회
+	 * 
+	 * @return int
+	 */
+	public int checkRegisterNum(int codeNum) {
+		SubjectDAO subDao = new SubjectDAO();
+		int num = subDao.getCurrNum(codeNum);
+		return num;
+	}
+
+	/**
+	 * 해당 과목의 최대수강인원을 조회
+	 * 
+	 * @return int
+	 */
+	public int checkRegisterMaxNum(int codeNum) {
+		SubjectDAO subDao = new SubjectDAO();
+		int num = subDao.getMaxNum(codeNum);
+		return num;
+	}
+
 }

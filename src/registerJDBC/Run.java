@@ -12,8 +12,10 @@ public class Run {
 		StudentController stdCon = new StudentController();
 		Subject subject = null;
 		Student student = null;
+
 		List<Subject> list = null;
 		List<Student> list2 = null;
+		HashMap<String, String> map = null;
 
 		int result = -1;
 		int codeNum = -1;
@@ -22,11 +24,11 @@ public class Run {
 			int mainNum = view.mainMenu();
 			switch (mainNum) {
 			case 0:
-				HashMap<String, String> map = view.checkAdmin();
-				String id = map.get("id");
-				String pw = map.get("pw");
+				map = view.checkUser();
+				String adminId = map.get("id");
+				String adminPw = map.get("pw");
 				// 관리자 로그인 성공
-				if (id.equals("admin") && pw.equals("1234")) {
+				if (adminId.equals("admin") && adminPw.equals("admin")) {
 					INNER: while (true) {
 						int subNum = view.subMenu();
 						switch (subNum) {
@@ -63,8 +65,7 @@ public class Run {
 							}
 							break;
 						case 3:
-							// 모든 정보 조회(과목, 학생)
-							// 과목
+							// 과목 조회
 							list = subCon.findAll();
 							if (list.isEmpty()) {
 								view.displayFail("개설된 과목이 없습니다..");
@@ -72,7 +73,9 @@ public class Run {
 								view.printAllSubject(list);
 								view.displaySuccess("개설 과목 조회 완료!!");
 							}
-							// 학생
+							break;
+						case 4:
+							// 학생 조회
 							list2 = stdCon.findAll();
 							if (list2.isEmpty()) {
 								view.displayFail("수강 신청한 학생이 없습니다..");
@@ -81,12 +84,12 @@ public class Run {
 								view.displaySuccess("모든 학생 조회 완료!!");
 							}
 							break;
-						case 4:
+						case 5:
 							// 관리자 모드 나가기
 							view.displaySuccess("관리자 모드 종료");
 							break INNER;
 						default:
-							view.displayFail("0 ~ 4 사이의 수를 입력하세요");
+							view.displayFail("0 ~ 5 사이의 수를 입력하세요");
 							break;
 						}
 					}
@@ -135,10 +138,12 @@ public class Run {
 				}
 				break;
 			case 3:
-				String StudentId = view.inputStudentId();
-				student = stdCon.notEmptyStudent(StudentId);
+				map = view.checkUser();
+				String userId = map.get("id");
+				String userPw = map.get("pw");
+				student = stdCon.notEmptyStudent(userId, userPw);
 				if (student != null) {
-					view.displaySuccess("해당 id가 존재합니다!!");
+					view.displaySuccess("해당 회원정보가 일치합니다!!");
 					subject = subCon.findByCodeNum(student.getSubjectCode());
 					view.printSubject(subject);
 					// 내역을 변경할지 안할지 정해야함
@@ -162,7 +167,7 @@ public class Run {
 									view.displaySuccess("수강신청 내역을 변경하였습니다!!");
 									break EXIT;
 								}
-							}else {
+							} else {
 								view.displayFail("수강신청 내역을 변경하지 못했습니다. 과목코드를 다시 확인하세요!!");
 								break;
 							}
@@ -173,9 +178,9 @@ public class Run {
 							view.displayFail("YES 또는 NO를 입력하세요..");
 							break;
 						}
-					}	// end - if
+					} // end - if
 				} else {
-					view.displayFail("해당 id가 존재하지 않습니다..");
+					view.displayFail("해당 회원정보가 존재하지 않습니다..");
 				}
 				break;
 			case 4:

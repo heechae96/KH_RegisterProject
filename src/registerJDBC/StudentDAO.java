@@ -21,7 +21,7 @@ public class StudentDAO {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			// 순서필요x, 해당 인덱스 번호랑 값만 맞춰주면 된다!
 			pstmt.setInt(4, student.getSubjectCode());
-			pstmt.setString(3, student.getPhone());
+			pstmt.setString(3, student.getStudentPw());
 			pstmt.setString(2, student.getName());
 			pstmt.setString(1, student.getStudentId());
 			result = pstmt.executeUpdate();
@@ -34,9 +34,9 @@ public class StudentDAO {
 		}
 	}
 
-	// 특정 학생만 조회(아이디로)
-	public Student selectById(String id) {
-		String sql = "SELECT * FROM STUDENT_TBL WHERE STUDENT_ID = ?";
+	// 특정 회원만 조회
+	public Student selectByInfo(String id, String pw) {
+		String sql = "SELECT * FROM STUDENT_TBL WHERE STUDENT_ID = ? AND STUDENT_PW = ?";
 		Student student = null;
 
 		try {
@@ -45,6 +45,7 @@ public class StudentDAO {
 
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
+			pstmt.setString(2, pw);
 			ResultSet rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -61,7 +62,7 @@ public class StudentDAO {
 
 	// 전체 조회
 	public List<Student> selectAll() {
-		String sql = "SELECT * FROM STUDENT_TBL";
+		String sql = "SELECT * FROM STUDENT_TBL ORDER BY STUDENT_ID ASC";
 		Student student = null;
 		List<Student> sList = null;
 
@@ -87,7 +88,7 @@ public class StudentDAO {
 
 	// 과목 코드 변경
 	public int updateCodeNum(int codeNum, Student std) {
-		String sql = "UPDATE STUDENT_TBL SET SUBJECT_CODE = ? WHERE STUDENT_ID = ?";
+		String sql = "UPDATE STUDENT_TBL SET SUBJECT_CODE = ? WHERE STUDENT_ID = ? AND STUDENT_PW = ?";
 		int result = -1;
 		try {
 			Class.forName(DRIVER_NAME);
@@ -96,6 +97,7 @@ public class StudentDAO {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, codeNum);
 			pstmt.setString(2, std.getStudentId());
+			pstmt.setString(3, std.getStudentPw());
 			result = pstmt.executeUpdate();
 
 			return result;

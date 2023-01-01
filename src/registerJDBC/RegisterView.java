@@ -25,20 +25,21 @@ public class RegisterView {
 		System.out.println("0. 자동 과목 생성");
 		System.out.println("1. 과목 생성");
 		System.out.println("2. 과목 삭제");
-		System.out.println("3. 모든 정보 조회(과목, 학생)");
-		System.out.println("4. 나가기");
+		System.out.println("3. 과목 조회");
+		System.out.println("4. 학생 조회");
+		System.out.println("5. 나가기");
 		System.out.print("메뉴 선택 : ");
 		int num = sc.nextInt();
 		return num;
 	}
 
-	public HashMap<String, String> checkAdmin() {
+	public HashMap<String, String> checkUser() {
 		HashMap<String, String> map = new HashMap<>();
 
 		Scanner sc = new Scanner(System.in);
-		System.out.print("아이디 >> ");
+		System.out.print("아이디 : ");
 		String id = sc.next();
-		System.out.print("비밀번호 >> ");
+		System.out.print("비밀번호 : ");
 		String pw = sc.next();
 
 		map.put("id", id);
@@ -59,7 +60,7 @@ public class RegisterView {
 		Subject subject = new Subject();
 		subject.setSubjectName(SubName);
 		subject.setName(name);
-		
+
 		return subject;
 	}
 
@@ -72,7 +73,7 @@ public class RegisterView {
 
 	public void printAllSubject(List<Subject> list) {
 		for (int i = 0; i < list.size(); i++) {
-			System.out.println((i+1) + ". " + list.get(i));
+			System.out.println((i + 1) + ". " + list.get(i));
 			System.out.println("====================");
 		}
 	}
@@ -87,7 +88,7 @@ public class RegisterView {
 
 	public void printAllStudent(List<Student> list) {
 		for (int i = 0; i < list.size(); i++) {
-			System.out.println((i+1) + ". " + list.get(i));
+			System.out.println((i + 1) + ". " + list.get(i));
 			System.out.println("====================");
 		}
 	}
@@ -96,22 +97,15 @@ public class RegisterView {
 		Scanner sc = new Scanner(System.in);
 		System.out.print("아이디 : ");
 		String id = sc.next();
+		System.out.print("비밀번호 : ");
+		String pw = sc.next();
 		System.out.print("이름 : ");
 		String name = sc.next();
-		System.out.print("휴대폰 번호 : ");
-		String phone = sc.next();
 		System.out.print("과목 코드 : ");
 		int codeNum = sc.nextInt();
 
-		Student student = new Student(id, name, phone, codeNum);
+		Student student = new Student(id, pw, name, codeNum);
 		return student;
-	}
-
-	public String inputStudentId() {
-		Scanner sc = new Scanner(System.in);
-		System.out.print("아이디 : ");
-		String id = sc.next();
-		return id;
 	}
 
 	public String inputChoice() {

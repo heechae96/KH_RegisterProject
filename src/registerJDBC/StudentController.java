@@ -28,14 +28,14 @@ public class StudentController {
 	}
 
 	/**
-	 * 조회하는 학생의 아이디가 존재하는지 확인
+	 * 조회하는 학생의 정보가 존재하는지 확인
 	 *
 	 * @param id
 	 * @return boolean
 	 */
-	public Student notEmptyStudent(String id) {
+	public Student notEmptyStudent(String id, String pw) {
 		StudentDAO stdDao = new StudentDAO();
-		Student student = stdDao.selectById(id);
+		Student student = stdDao.selectByInfo(id,pw);
 		return student;
 	}
 
