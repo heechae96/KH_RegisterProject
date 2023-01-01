@@ -1,8 +1,8 @@
 ### 1. 테이블
-![스크린샷 2022-12-30 오후 3 42 06](https://user-images.githubusercontent.com/90540377/210042249-b8c39a14-ebe3-4a7e-afe4-5143c9bc0379.png)
+<img width="395" alt="스크린샷 2023-01-02 오전 1 28 35" src="https://user-images.githubusercontent.com/90540377/210177933-616c9686-7c37-44e8-b301-6ff9f3864944.png">
 
 ### 2. 초기 관리자 화면
-<img width="337" alt="스크린샷 2022-12-30 오후 4 16 17" src="https://user-images.githubusercontent.com/90540377/210044527-a67f2f43-1ec3-43e2-bb27-0da72318a04a.png">
+<img width="303" alt="스크린샷 2023-01-02 오전 1 30 35" src="https://user-images.githubusercontent.com/90540377/210177964-575b4532-dd45-4783-8591-14690124ac5b.png">
 
 ### 3. 초기 사용자 화면
 <img width="337" alt="스크린샷 2022-12-30 오후 4 15 07" src="https://user-images.githubusercontent.com/90540377/210044457-fbe76cfd-993f-4de1-bef0-ef70e90e03fc.png">
