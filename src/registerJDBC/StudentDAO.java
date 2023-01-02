@@ -107,5 +107,30 @@ public class StudentDAO {
 			throw new RuntimeException(e);
 		}
 	}
+	
+	// 중복 아이디 처리
+	public int checkDupId(String id) {
+		String sql = "SELECT COUNT(*) FROM STUDENT_TBL WHERE STUDENT_ID = ?";
+		int result = -1;
+		try {
+			Class.forName(DRIVER_NAME);
+			Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+
+			return result;
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException(e);
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+
+	}
 
 }

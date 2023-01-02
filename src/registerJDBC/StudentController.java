@@ -35,7 +35,7 @@ public class StudentController {
 	 */
 	public Student notEmptyStudent(String id, String pw) {
 		StudentDAO stdDao = new StudentDAO();
-		Student student = stdDao.selectByInfo(id,pw);
+		Student student = stdDao.selectByInfo(id, pw);
 		return student;
 	}
 
@@ -49,6 +49,18 @@ public class StudentController {
 	public int changeCodeNum(int codeNum, Student std) {
 		StudentDAO stdDao = new StudentDAO();
 		int result = stdDao.updateCodeNum(codeNum, std);
+		return result;
+	}
+
+	/**
+	 * 중복되는 ID인지 확인
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public int checkDoubleId(String id) {
+		StudentDAO stdDao = new StudentDAO();
+		int result = stdDao.checkDupId(id);
 		return result;
 	}
 
