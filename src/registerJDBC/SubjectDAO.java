@@ -55,7 +55,7 @@ public class SubjectDAO {
 
 	// 1. 과목 생성
 	public int insertSubject(Subject subject) {
-		String sql = "INSERT INTO SUBJECT_TBL VALUES(?,SUB_SEQUENCE.NEXTVAL,?,DEFAULT,DEFAULT)";
+		String sql = "INSERT INTO SUBJECT_TBL VALUES(?, ?, SUB_SEQUENCE.NEXTVAL, ?, DEFAULT)";
 		int result = -1;
 		try {
 			Class.forName(DRIVER_NAME);
@@ -64,6 +64,7 @@ public class SubjectDAO {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, subject.getSubjectName());
 			pstmt.setString(2, subject.getName());
+			pstmt.setInt(3, subject.getCapacity());
 			result = pstmt.executeUpdate();
 
 			return result;
@@ -227,7 +228,6 @@ public class SubjectDAO {
 			if (rs.next()) {
 				result = rs.getInt(1);
 			}
-//			return result;
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
@@ -251,7 +251,6 @@ public class SubjectDAO {
 			if (rs.next()) {
 				result = rs.getInt(1);
 			}
-//			return result;
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {

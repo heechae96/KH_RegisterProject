@@ -19,6 +19,8 @@ public class Run {
 
 		int result = -1;
 		int codeNum = -1;
+		int maxNum = -1;
+		int currNum = -1;
 
 		OUTER: while (true) {
 			int mainNum = view.mainMenu();
@@ -120,19 +122,28 @@ public class Run {
 						view.printAllSubject(list);
 						view.printMsg("=============== 위의 과목 코드를 확인해주세요 ===============");
 						student = view.inputStudent();
-						int checkNum = student.getSubjectCode(); // 없는 과목코드가 들어가지 못하도록 확인 작업
+						int checkNum = student.getSubjectCode();
+						codeNum = student.getSubjectCode();
+						maxNum = subCon.checkRegisterMaxNum(codeNum);
+						currNum = subCon.checkRegisterNum(codeNum);
+						// 없는 과목코드가 들어가지 못하도록 확인 작업
 						if (subCon.checkCodeNum(checkNum) > 0) {
-							// 수강 신청 인원 + 1
 							subject = subCon.findByCodeNum(checkNum);
-							subCon.plusSubject(subject);
-							result = stdCon.addStudent(student);
-							if (result > 0) {
-								view.displaySuccess("수강 신청 완료!!");
-								break OUT;
+							// 수강 가능한 인원을 초과했는지 확인 작업
+							if (maxNum > currNum) {
+								// 수강 신청 인원 + 1
+								subCon.plusSubject(subject);
+								result = stdCon.addStudent(student);
+								if (result > 0) {
+									view.displaySuccess("수강 신청 완료!!");
+									break OUT;
+								}
 							} else {
-								view.displayFail("수강신청을 실패하였습니다. 과목코드를 다시 확인하세요!!");
-								break;
+								view.displayFail("수강 인원을 초과했습니다. 다른 과목을 신청해주세요..");
 							}
+						} else {
+							view.displayFail("수강신청을 실패하였습니다. 과목코드를 다시 확인하세요..");
+							break;
 						}
 					}
 				}
@@ -157,18 +168,27 @@ public class Run {
 							codeNum = view.changeSubject();
 							// 없는 과목코드가 들어가지 못하도록 확인 작업
 							if (subCon.checkCodeNum(codeNum) > 0) {
-								result = stdCon.changeCodeNum(codeNum, student);
-								if (result > 0) {
-									// 기존과목 수강 신청 인원 - 1
-									subCon.minusSubject(subject);
-									// 새로운 과목 수강 신청 인원 + 1
-									subject = subCon.findByCodeNum(codeNum);
-									subCon.plusSubject(subject);
-									view.displaySuccess("수강신청 내역을 변경하였습니다!!");
-									break EXIT;
+								maxNum = subCon.checkRegisterMaxNum(codeNum);
+								currNum = subCon.checkRegisterNum(codeNum);
+								// 수강 가능한 인원을 초과했는지 확인 작업
+								if (subCon.checkCodeNum(codeNum) > 0) {
+									if (maxNum > currNum) {
+										result = stdCon.changeCodeNum(codeNum, student);
+										if (result > 0) {
+											// 기존과목 수강 신청 인원 - 1
+											subCon.minusSubject(subject);
+											// 새로운 과목 수강 신청 인원 + 1
+											subject = subCon.findByCodeNum(codeNum);
+											subCon.plusSubject(subject);
+											view.displaySuccess("수강신청 내역을 변경하였습니다!!");
+											break EXIT;
+										}
+									} else {
+										view.displayFail("수강 인원을 초과했습니다. 다른 과목을 신청해주세요..");
+									}
 								}
 							} else {
-								view.displayFail("수강신청 내역을 변경하지 못했습니다. 과목코드를 다시 확인하세요!!");
+								view.displayFail("수강신청 내역을 변경하지 못했습니다. 과목코드를 다시 확인하세요..");
 								break;
 							}
 						} else if (choice.equalsIgnoreCase("no")) {

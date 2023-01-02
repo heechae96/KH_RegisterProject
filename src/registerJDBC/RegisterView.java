@@ -54,12 +54,13 @@ public class RegisterView {
 		String SubName = sc.nextLine();
 		System.out.print("교수명 : ");
 		String name = sc.next();
-		// 과목코드는 시퀀스 통해서 자동 증가
-		// 최대 수강 인원 및 신청 수강 인원은 디폴트로 자동으로 10과 0으로 초기화
-
+		System.out.print("최대수강인원: ");
+		int maxNum = sc.nextInt();
+		
 		Subject subject = new Subject();
 		subject.setSubjectName(SubName);
 		subject.setName(name);
+		subject.setCapacity(maxNum);
 
 		return subject;
 	}
