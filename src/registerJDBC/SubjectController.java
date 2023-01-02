@@ -3,6 +3,12 @@ package registerJDBC;
 import java.util.List;
 
 public class SubjectController {
+	
+	private SubjectService subService;
+	
+	public SubjectController() {
+		subService = new SubjectService();
+	}
 
 	/**
 	 * 자동 과목 추가
@@ -10,8 +16,7 @@ public class SubjectController {
 	 * @return int
 	 */
 	public int addAutoSubject() {
-		SubjectDAO subDao = new SubjectDAO();
-		int result = subDao.autoInsertSubject();
+		int result = subService.autoInsertSubject();
 		return result;
 	}
 
@@ -22,8 +27,7 @@ public class SubjectController {
 	 * @return int
 	 */
 	public int addSubject(Subject subject) {
-		SubjectDAO subDao = new SubjectDAO();
-		int result = subDao.insertSubject(subject);
+		int result = subService.insertSubject(subject);
 		return result;
 	}
 
@@ -34,8 +38,7 @@ public class SubjectController {
 	 * @return int
 	 */
 	public int removeSubject(int codeNum) {
-		SubjectDAO subDao = new SubjectDAO();
-		int result = subDao.deleteSubject(codeNum);
+		int result = subService.deleteSubject(codeNum);
 		return result;
 	}
 
@@ -45,8 +48,7 @@ public class SubjectController {
 	 * @return List<Subject>
 	 */
 	public List<Subject> findAll() {
-		SubjectDAO subDao = new SubjectDAO();
-		List<Subject> list = subDao.selectAll();
+		List<Subject> list = subService.selectAll();
 		return list;
 	}
 
@@ -57,8 +59,7 @@ public class SubjectController {
 	 * @return Subject
 	 */
 	public Subject findByCodeNum(int codeNum) {
-		SubjectDAO subDao = new SubjectDAO();
-		Subject subject = subDao.selectByCodeNum(codeNum);
+		Subject subject = subService.selectByCodeNum(codeNum);
 		return subject;
 	}
 
@@ -69,8 +70,7 @@ public class SubjectController {
 	 * @return int
 	 */
 	public int checkCodeNum(int codeNum) {
-		SubjectDAO subDao = new SubjectDAO();
-		int result = subDao.checkCodeNum(codeNum);
+		int result = subService.checkCodeNum(codeNum);
 		return result;
 	}
 
@@ -81,8 +81,7 @@ public class SubjectController {
 	 * @return int
 	 */
 	public int plusSubject(Subject sub) {
-		SubjectDAO subDao = new SubjectDAO();
-		int result = subDao.plusRegisterNum(sub);
+		int result = subService.plusRegisterNum(sub);
 		return result;
 	}
 
@@ -93,8 +92,7 @@ public class SubjectController {
 	 * @return int
 	 */
 	public int minusSubject(Subject sub) {
-		SubjectDAO subDao = new SubjectDAO();
-		int result = subDao.minusRegisterNum(sub);
+		int result = subService.minusRegisterNum(sub);
 		return result;
 	}
 
@@ -104,8 +102,7 @@ public class SubjectController {
 	 * @return int
 	 */
 	public int checkRegisterNum(int codeNum) {
-		SubjectDAO subDao = new SubjectDAO();
-		int num = subDao.getCurrNum(codeNum);
+		int num = subService.getCurrNum(codeNum);
 		return num;
 	}
 
@@ -115,8 +112,7 @@ public class SubjectController {
 	 * @return int
 	 */
 	public int checkRegisterMaxNum(int codeNum) {
-		SubjectDAO subDao = new SubjectDAO();
-		int num = subDao.getMaxNum(codeNum);
+		int num = subService.getMaxNum(codeNum);
 		return num;
 	}
 

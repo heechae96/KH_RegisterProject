@@ -4,6 +4,12 @@ import java.util.List;
 
 public class StudentController {
 
+	private StudentService stdService;
+
+	public StudentController() {
+		stdService = new StudentService();
+	}
+
 	/**
 	 * 학생 추가
 	 *
@@ -11,8 +17,7 @@ public class StudentController {
 	 * @return int
 	 */
 	public int addStudent(Student student) {
-		StudentDAO stdDAO = new StudentDAO();
-		int result = stdDAO.insertStudent(student);
+		int result = stdService.insertStudent(student);
 		return result;
 	}
 
@@ -22,8 +27,7 @@ public class StudentController {
 	 * @return List<Student>
 	 */
 	public List<Student> findAll() {
-		StudentDAO stdDao = new StudentDAO();
-		List<Student> list = stdDao.selectAll();
+		List<Student> list = stdService.selectAll();
 		return list;
 	}
 
@@ -34,8 +38,7 @@ public class StudentController {
 	 * @return boolean
 	 */
 	public Student notEmptyStudent(String id, String pw) {
-		StudentDAO stdDao = new StudentDAO();
-		Student student = stdDao.selectByInfo(id, pw);
+		Student student = stdService.selectByInfo(id, pw);
 		return student;
 	}
 
@@ -47,8 +50,7 @@ public class StudentController {
 	 * @return int
 	 */
 	public int changeCodeNum(int codeNum, Student std) {
-		StudentDAO stdDao = new StudentDAO();
-		int result = stdDao.updateCodeNum(codeNum, std);
+		int result = stdService.updateCodeNum(codeNum, std);
 		return result;
 	}
 
@@ -59,8 +61,7 @@ public class StudentController {
 	 * @return
 	 */
 	public int checkDoubleId(String id) {
-		StudentDAO stdDao = new StudentDAO();
-		int result = stdDao.checkDupId(id);
+		int result = stdService.checkDupId(id);
 		return result;
 	}
 
