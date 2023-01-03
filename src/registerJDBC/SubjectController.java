@@ -3,21 +3,11 @@ package registerJDBC;
 import java.util.List;
 
 public class SubjectController {
-	
+
 	private SubjectService subService;
-	
+
 	public SubjectController() {
 		subService = new SubjectService();
-	}
-
-	/**
-	 * 자동 과목 추가
-	 * 
-	 * @return int
-	 */
-	public int addAutoSubject() {
-		int result = subService.autoInsertSubject();
-		return result;
 	}
 
 	/**
