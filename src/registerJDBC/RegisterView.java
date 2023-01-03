@@ -32,7 +32,7 @@ public class RegisterView {
 		int num = sc.nextInt();
 		return num;
 	}
-
+	
 	public HashMap<String, String> checkUser() {
 		HashMap<String, String> map = new HashMap<>();
 

@@ -1,15 +1,14 @@
 package registerJDBC;
 
+import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 
 public class JDBCTemplate {
 
-	private static final String URL = "jdbc:oracle:thin:@localhost:1521:XE";
-	private static final String USER = "PROJECT";
-	private static final String PASSWORD = "PROJECT";
-	private static final String DRIVER_NAME = "oracle.jdbc.driver.OracleDriver";
+	private static Properties prop;
 
 	// JDBCTemplate을 싱글톤 패턴 적용
 	private static JDBCTemplate instance;
@@ -28,15 +27,22 @@ public class JDBCTemplate {
 	// 연결을 만들어주는 메소드
 	public static Connection getConnection() {
 		try {
+			prop = new Properties();
+			// 스트림에서 배웠음
+			FileReader reader = new FileReader("resources/dev.properties");
+			prop.load(reader);
+			
+			String url = prop.getProperty("url");
+			String user = prop.getProperty("user");
+			String password = prop.getProperty("password");
+			
 			// connection.isClosed()을 안쓰면 중간에 연결이 종료되는 상황 발생
 			if (connection == null || connection.isClosed()) {
-				Class.forName(DRIVER_NAME);
-				connection = DriverManager.getConnection(URL, USER, PASSWORD);
+				Class.forName(prop.getProperty("driver"));
+				connection = DriverManager.getConnection(url, user, password);
 				connection.setAutoCommit(false); // 오토커밋 해제
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return connection;
