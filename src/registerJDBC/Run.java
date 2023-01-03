@@ -14,7 +14,7 @@ public class Run {
 		Student student = null;
 
 		List<Subject> list = null;
-		List<Student> list2 = null;
+		List<Register> list2 = null;
 		HashMap<String, String> map = null;
 
 		int result = -1;
@@ -29,8 +29,9 @@ public class Run {
 				map = view.checkUser();
 				String adminId = map.get("id");
 				String adminPw = map.get("pw");
+				student = stdCon.notEmptyStudent(adminId, adminPw);
 				// 관리자 로그인 성공
-				if (adminId.equals("admin") && adminPw.equals("admin")) {
+				if (student != null) {
 					INNER: while (true) {
 						int subNum = view.subMenu();
 						switch (subNum) {

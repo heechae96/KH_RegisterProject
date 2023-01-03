@@ -87,13 +87,13 @@ public class RegisterView {
 		System.out.println("신청수강인원 : " + subject.getRegisterNumber());
 	}
 
-	public void printAllStudent(List<Student> list) {
+	public void printAllStudent(List<Register> list) {
 		for (int i = 0; i < list.size(); i++) {
 			System.out.println((i + 1) + ". " + list.get(i));
 			System.out.println("====================");
 		}
 	}
-
+	
 	public Student inputStudent() {
 		Scanner sc = new Scanner(System.in);
 		System.out.print("아이디 : ");

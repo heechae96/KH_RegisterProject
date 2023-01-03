@@ -26,8 +26,8 @@ public class StudentController {
 	 *
 	 * @return List<Student>
 	 */
-	public List<Student> findAll() {
-		List<Student> list = stdService.selectAll();
+	public List<Register> findAll() {
+		List<Register> list = stdService.selectAll();
 		return list;
 	}
 

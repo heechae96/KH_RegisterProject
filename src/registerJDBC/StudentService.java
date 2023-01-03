@@ -28,9 +28,9 @@ public class StudentService {
 		return student;
 	}
 
-	public List<Student> selectAll() {
+	public List<Register> selectAll() {
 		Connection conn = JDBCTemplate.getConnection();
-		List<Student> sList = stdDao.selectAll(conn);
+		List<Register> sList = stdDao.selectAll(conn);
 		return sList;
 	}
 

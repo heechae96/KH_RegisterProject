@@ -48,11 +48,16 @@ public class StudentDAO {
 		return student;
 	}
 
-	// 전체 조회
-	public List<Student> selectAll(Connection conn) {
-		String sql = "SELECT * FROM STUDENT_TBL ORDER BY STUDENT_ID ASC";
-		Student student = null;
-		List<Student> sList = null;
+	// 전체 조회 + 과목명
+	public List<Register> selectAll(Connection conn) {
+		// 관리자를 학생테이블에 같이 포함시켰기 때문에 제외 시켜야 한다
+		String sql = "SELECT A.STUDENT_ID, A.STUDENT_PW, A.NAME, A.SUBJECT_CODE, B.SUBJECT_NAME "
+				+ "FROM STUDENT_TBL A "
+				+ "JOIN SUBJECT_TBL B "
+				+ "ON A.SUBJECT_CODE = B.SUBJECT_CODE "
+				+ "WHERE A.STUDENT_ID <> 'admin' ORDER BY A.STUDENT_ID ASC";
+		Register register = null;
+		List<Register> sList = null;
 
 		try {
 			Statement stmt = conn.createStatement();
@@ -60,15 +65,15 @@ public class StudentDAO {
 
 			sList = new ArrayList<>();
 			while (rs.next()) {
-				student = new Student(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4));
-				sList.add(student);
+				register = new Register(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5));
+				sList.add(register);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return sList;
 	}
-
+	
 	// 과목 코드 변경
 	public int updateCodeNum(Connection conn, int codeNum, Student std) {
 		String sql = "UPDATE STUDENT_TBL SET SUBJECT_CODE = ? WHERE STUDENT_ID = ? AND STUDENT_PW = ?";
