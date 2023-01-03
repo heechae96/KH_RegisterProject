@@ -1,10 +1,13 @@
 ### 1. 테이블
 <img width="395" alt="스크린샷 2023-01-02 오전 1 28 35" src="https://user-images.githubusercontent.com/90540377/210177933-616c9686-7c37-44e8-b301-6ff9f3864944.png">
 
-### 2. 초기 관리자 화면
-<img width="303" alt="스크린샷 2023-01-02 오전 1 30 35" src="https://user-images.githubusercontent.com/90540377/210177964-575b4532-dd45-4783-8591-14690124ac5b.png">
+### 2. 클래스 다이어그램
+![classDiagram](https://user-images.githubusercontent.com/90540377/210321782-6c18f9f8-e786-4d9f-884a-e5b1df692724.png)
 
-### 3. 초기 사용자 화면
+### 3. 초기 관리자 화면
+![스크린샷 2023-01-03 오후 5 24 00](https://user-images.githubusercontent.com/90540377/210321642-eba3a038-fe5d-42f7-a6af-e9e4f4c508f9.png)
+
+### 4. 초기 사용자 화면
 <img width="337" alt="스크린샷 2022-12-30 오후 4 15 07" src="https://user-images.githubusercontent.com/90540377/210044457-fbe76cfd-993f-4de1-bef0-ef70e90e03fc.png">
 
 ---
