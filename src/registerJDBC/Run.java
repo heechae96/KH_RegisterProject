@@ -35,15 +35,6 @@ public class Run {
 					INNER: while (true) {
 						int subNum = view.subMenu();
 						switch (subNum) {
-						case 0:
-							// 자동 과목 생성
-							result = subCon.addAutoSubject();
-							if (result > 0) {
-								view.displaySuccess("자동 과목 추가 성공!!");
-							} else {
-								view.displayFail("자동 과목 추가 실패..");
-							}
-							break;
 						case 1:
 							// 과목 생성
 							subject = view.inputSubject();
@@ -64,7 +55,7 @@ public class Run {
 							if (result > 0) {
 								view.displaySuccess("과목 삭제 성공!!");
 							} else {
-								view.displayFail("과목 삭제 실패..");
+								view.displayFail("과목 삭제 실패하였습니다. 과목코드를 다시 확인하세요..");
 							}
 							break;
 						case 3:
@@ -93,7 +84,7 @@ public class Run {
 							view.displaySuccess("관리자 모드 종료");
 							break INNER;
 						default:
-							view.displayFail("0 ~ 5 사이의 수를 입력하세요");
+							view.displayFail("1 ~ 5 사이의 수를 입력하세요");
 							break;
 						}
 					}

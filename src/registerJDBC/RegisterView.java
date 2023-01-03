@@ -22,7 +22,6 @@ public class RegisterView {
 	public int subMenu() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("===== 관리자 페이지[주의!!] =====");
-		System.out.println("0. 자동 과목 생성");
 		System.out.println("1. 과목 생성");
 		System.out.println("2. 과목 삭제");
 		System.out.println("3. 과목 조회");
