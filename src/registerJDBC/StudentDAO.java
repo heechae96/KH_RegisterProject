@@ -1,5 +1,8 @@
 package registerJDBC;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,12 +10,27 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class StudentDAO {
 	
+	private Properties prop;
+	
+	public StudentDAO() {
+		prop = new Properties();
+		try {
+			FileReader reader = new FileReader("resources/query.properties");
+			prop.load(reader);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	// 추가
 	public int insertStudent(Connection conn, Student student) {
-		String sql = "INSERT INTO STUDENT_TBL VALUES(?,?,?,?)";
+		String sql = prop.getProperty("insertStudent");
 		int result = -1;
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -30,7 +48,7 @@ public class StudentDAO {
 
 	// 특정 회원만 조회
 	public Student selectByInfo(Connection conn, String id, String pw) {
-		String sql = "SELECT * FROM STUDENT_TBL WHERE STUDENT_ID = ? AND STUDENT_PW = ?";
+		String sql = prop.getProperty("selectByInfo");
 		Student student = null;
 
 		try {
@@ -51,11 +69,7 @@ public class StudentDAO {
 	// 전체 조회 + 과목명
 	public List<Register> selectAll(Connection conn) {
 		// 관리자를 학생테이블에 같이 포함시켰기 때문에 제외 시켜야 한다
-		String sql = "SELECT A.STUDENT_ID, A.STUDENT_PW, A.NAME, A.SUBJECT_CODE, B.SUBJECT_NAME "
-				+ "FROM STUDENT_TBL A "
-				+ "JOIN SUBJECT_TBL B "
-				+ "ON A.SUBJECT_CODE = B.SUBJECT_CODE "
-				+ "WHERE A.STUDENT_ID <> 'admin' ORDER BY A.STUDENT_ID ASC";
+		String sql = prop.getProperty("selectAll");
 		Register register = null;
 		List<Register> sList = null;
 
@@ -76,7 +90,7 @@ public class StudentDAO {
 	
 	// 과목 코드 변경
 	public int updateCodeNum(Connection conn, int codeNum, Student std) {
-		String sql = "UPDATE STUDENT_TBL SET SUBJECT_CODE = ? WHERE STUDENT_ID = ? AND STUDENT_PW = ?";
+		String sql = prop.getProperty("updateCodeNum");
 		int result = -1;
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -92,7 +106,7 @@ public class StudentDAO {
 
 	// 중복 아이디 처리
 	public int checkDupId(Connection conn, String id) {
-		String sql = "SELECT COUNT(*) FROM STUDENT_TBL WHERE STUDENT_ID = ?";
+		String sql = prop.getProperty("checkDupId");
 		int result = -1;
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
