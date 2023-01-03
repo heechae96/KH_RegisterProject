@@ -2,6 +2,7 @@ package registerJDBC;
 
 public class Register {
 	// 이후에 JPA를 배우면 이런식으로 추가적인 VO를 만들필요가 없다
+	// 필요한 Student컬럼과 Subject컬럼들
 	private String studentId; 		// 아이디
 	private String studentPw; 		// 비밀번호
 	private String name; 			// 이름
