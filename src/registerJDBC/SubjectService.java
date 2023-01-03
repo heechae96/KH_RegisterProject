@@ -11,17 +11,6 @@ public class SubjectService {
 		subDao = new SubjectDAO();
 	}
 
-	public int autoInsertSubject() {
-		Connection conn = JDBCTemplate.getConnection();
-		int result = subDao.autoInsertSubject(conn);
-		if (result > 0) {
-			JDBCTemplate.commit(conn);
-		} else {
-			JDBCTemplate.rollback(conn);
-		}
-		return result;
-	}
-
 	public int insertSubject(Subject subject) {
 		Connection conn = JDBCTemplate.getConnection();
 		int result = subDao.insertSubject(conn, subject);
