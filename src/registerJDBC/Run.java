@@ -78,6 +78,7 @@ public class Run {
 							break;
 						case 4:
 							// 학생 조회
+							// 조인을 해서 가져와
 							list2 = stdCon.findAll();
 							if (list2.isEmpty()) {
 								view.displayFail("수강 신청한 학생이 없습니다..");
